@@ -9,15 +9,15 @@ The Project was done in a total of 80 development hours and includes the followi
 - history entries for reverting changes
 - Hardcoded german strings :P
 
-![](/screenshots/2.PNG)
-![](/screenshots/3.PNG)
-![](/screenshots/4.PNG)
-![](/screenshots/7.PNG)
-![](/screenshots/8.PNG)
-![](/screenshots/9.PNG)
-![](/screenshots/10.PNG)
-![](/screenshots/11.PNG)
-![](/screenshots/5.PNG)
+![](/docs/screenshots/2.PNG)
+![](/docs/screenshots/3.PNG)
+![](/docs/screenshots/4.PNG)
+![](/docs/screenshots/7.PNG)
+![](/docs/screenshots/8.PNG)
+![](/docs/screenshots/9.PNG)
+![](/docs/screenshots/10.PNG)
+![](/docs/screenshots/11.PNG)
+![](/docs/screenshots/5.PNG)
 
 # TODO
 
