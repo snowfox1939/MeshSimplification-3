@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
 
 using Polynano.Graphics.Helpers;
 using System.Drawing;
@@ -15,7 +15,7 @@ namespace Polynano.Graphics
     /// <summary>
     /// Class Responsible for the Display of a Mesh.
     /// </summary>
-    public class MeshView : GLControl
+    public class MeshView : GameWindow
     {
         /// <summary>
         /// Meshes to draw
@@ -42,7 +42,7 @@ namespace Polynano.Graphics
         /// <summary>
         /// The position of the mouse, retrieved from the last event.
         /// </summary>
-        private Point _lastMousePos;
+        private Vector2 _lastMousePos;
 
         /// <summary>
         /// Will be fired when the MeshView is ready.
@@ -58,20 +58,29 @@ namespace Polynano.Graphics
         /// Default Constructor
         /// </summary>
         public MeshView()
-            : base(new GraphicsMode(32, 24, 0, 8), 3, 3, GraphicsContextFlags.Default)
+           : base(
+            1280,
+            720,
+            GraphicsMode.Default,
+            "Polynano",
+            GameWindowFlags.Default,
+            DisplayDevice.Default,
+            4, 5, // Request OpenGL 4.5
+            GraphicsContextFlags.ForwardCompatible
+        )
         {
             // set the OpenGL to 3.3
             // intitialize the Camera with the current width and height
             _camera = new ArcballCamera(Width, Height);
             // set the default mouse button to the left button
-            ViewNavigationTriggerButton = MouseButtons.Left;
+            ViewNavigationTriggerButton = OpenTK.Input.MouseButton.Left;
             _isViewRotationActive = false;
         }
 
         /// <summary>
         /// get or set the mouse button that will start the mouse navigation
         /// </summary>
-        public MouseButtons ViewNavigationTriggerButton { get; set; }
+        public OpenTK.Input.MouseButton ViewNavigationTriggerButton { get; set; }
 
         /// <summary>
         /// Get or set the ShaderProgram that will be used for rendering
@@ -150,16 +159,16 @@ namespace Polynano.Graphics
         /// <summary>
         /// Called by windows when the used used the mouse scroll
         /// </summary>
-        protected override void OnMouseWheel(MouseEventArgs e)
+
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
         {
             _camera.Zoom(e.Delta > 0 ? 0.1f * e.Delta + 1.0f : 0.1f * e.Delta - 1.0f);
-            Render();
         }
 
         /// <summary>
         /// Called by Windows when the element needs to be redrawn.
         /// </summary>
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void OnRenderFrame(FrameEventArgs e)
         {
             Render();
         }
@@ -167,20 +176,21 @@ namespace Polynano.Graphics
         /// <summary>
         /// Called by Windows when the user pressed a mouse button
         /// </summary>
-        protected override void OnMouseDown(MouseEventArgs e)
+
+        protected override void OnMouseDown(MouseButtonEventArgs e)
         {
-            if (e.Button == ViewNavigationTriggerButton)
+             if (e.Button == ViewNavigationTriggerButton)
             {
                 _isViewRotationActive = true;
-                _lastMousePos = new Point(e.X, e.Y);
-            }
+                _lastMousePos = new Vector2(e.X, e.Y);
+            } 
         }
 
         /// <summary>
         /// Called by Windows when the user released a mouse button
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnMouseUp(MouseEventArgs e)
+        protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             if (e.Button == ViewNavigationTriggerButton)
             {
@@ -192,7 +202,8 @@ namespace Polynano.Graphics
         /// Called by Windows when the user moved the mouse
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnMouseMove(MouseEventArgs e)
+
+        protected override void OnMouseMove(MouseMoveEventArgs e)
         {
             if (_lastMousePos.X == e.X && _lastMousePos.Y == e.Y)
                 return;
@@ -200,10 +211,9 @@ namespace Polynano.Graphics
             // run only when the move was while the navigation button was pressed
             if (_isViewRotationActive)
             {
-                _camera.Rotate(e.X, e.Y, _lastMousePos.X, _lastMousePos.Y);
-                _lastMousePos = new Point(e.X, e.Y);
-                Render();
-            }
+                _camera.Rotate(e.X, e.Y, (int)_lastMousePos.X, (int)_lastMousePos.Y);
+                _lastMousePos = new Vector2(e.X, e.Y);
+            }  
         }
 
         /// <summary>
@@ -214,7 +224,7 @@ namespace Polynano.Graphics
             if (ShaderProgram == null || ShaderProgram.ProgramId == 0)
                 return;
 
-            GL.ClearColor(Color.Black);
+            GL.ClearColor(OpenTK.Color.Black);
 
             if (_meshes != null)
             {

@@ -11,11 +11,8 @@ namespace Polynano
             // for some reason this causes a memory leak.
             var tk = OpenTK.Toolkit.Init ();
             var app = new Application ();
-            var gui = new UI.GuiApplicationForm (app);
-            System.Windows.Forms.Application.EnableVisualStyles ();
-            System.Windows.Forms.Application.Run (gui);
+            var gui = new Polynano.UI.MainApplication(app);
 
-            gui.Dispose ();
             tk.Dispose ();
         }
     }

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Polynano.Processing
 {
-    internal class MeshSimplifier : IMeshSimplifier
+    public class MeshSimplifier : IMeshSimplifier
     {
         // We use dictionaries to preserve the original indices 
         // because updating them is too expensive.

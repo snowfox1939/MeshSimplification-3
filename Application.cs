@@ -9,7 +9,7 @@ using static System.String;
 
 namespace Polynano
 {
-    internal class Application
+    public class Application
     {
         /// <summary>
         /// The original model that was loaded from file

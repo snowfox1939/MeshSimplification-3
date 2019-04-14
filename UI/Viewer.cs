@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using Polynano.Processing;
 
 namespace Polynano.UI
@@ -40,14 +39,6 @@ namespace Polynano.UI
         /// Array of the meshes to display
         /// </summary>
         private IMesh[] _meshes;
-
-        /// <summary>
-        /// Set the parent of this control
-        /// </summary>
-        public Form Parent
-        {
-            set => _meshView.Parent = value;
-        }
 
         /// <summary>
         /// Set the transformation to apply to the model
@@ -99,15 +90,19 @@ namespace Polynano.UI
             _meshView = new MeshView();
         }
 
+
+        public void Run()
+        {
+            _meshView.Run(OpenTK.DisplayDevice.Default.RefreshRate);
+        }
+
         /// <summary>
         /// Update the size of this control
         /// </summary>
         public void UpdateSize(int x, int y, int width, int height)
         {
-            _meshView.Location = new Point(x, y);
             _meshView.Width = width;
             _meshView.Height = height;
-            _meshView.Refresh();
         }
 
         /// <summary>
@@ -189,7 +184,6 @@ namespace Polynano.UI
                 }
             }
             _meshView.MeshColorMappings = colors;
-            _meshView.Refresh();
         }
     }
 }

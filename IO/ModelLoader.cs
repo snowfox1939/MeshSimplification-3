@@ -5,8 +5,6 @@ using Polynano.Common;
 using OpenTK;
 using System.Collections.Generic;
 
-using EarClipperLib;
-
 namespace Polynano.IO
 {
     internal static class ModelLoader
@@ -150,28 +148,7 @@ namespace Polynano.IO
                                 }
                                 else
                                 {
-                                    // if we got more than 4 its a polygon we need to triangulate 
-                                    // with the EarClipperLib Library.
-
-                                    var points = new List<Vector3m>(verts.Count);
-
-                                    foreach (var v in verts)
-                                    {
-                                        var vx = model.Vertices[v].X;
-                                        var vy = model.Vertices[v].Y;
-                                        var vz = model.Vertices[v].Z;
-                                        points.Add(new Vector3m(vx, vy, vz));
-                                    }
-
-                                    var clipper = new EarClipping();
-                                    clipper.SetPoints(points);
-                                    clipper.Triangulate();
-                                    var res = clipper.Result;
-
-                                    for (int ri = 0; ri < res.Count; ri += 3)
-                                    {
-                                        faces.Add(new IndexedTriangle(points.IndexOf(res[ri]), points.IndexOf(res[ri + 1]), points.IndexOf(res[ri + 2])));
-                                    }
+                                   throw new NotImplementedException();
                                 }
                                 currFace++;
                                 ignored = false;

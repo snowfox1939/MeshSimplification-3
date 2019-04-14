@@ -5,7 +5,7 @@
     /// Also provides information about the edges 
     /// and used vertices
     /// </summary>
-    internal class MeshGeometryData : MeshData
+    public class MeshGeometryData : MeshData
     {
         public int[] ActiveVertices;
 

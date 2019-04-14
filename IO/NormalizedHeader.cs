@@ -46,7 +46,7 @@ namespace Polynano.IO
             // Find the vertex, face and normal elements using some common names
             VerticesId = FindElement(new[] { "vertex", "vertices", "points" });
             FacesId = FindElement(new[] { "faces", "face", "triangles" });
-            NormalsId = FindElement(new[] { "normals", "normal" }
+            NormalsId = FindElement(new[] { "normals", "normal" });
             if(VerticesId == -1)
             {
                 throw new ArgumentException("Model must define vertices");
@@ -61,8 +61,8 @@ namespace Polynano.IO
             VertexX = FindProperty(VerticesId, new[] { "x" });
             VertexY = FindProperty(VerticesId, new[] { "y" });
             VertexZ = FindProperty(VerticesId, new[] { "z" });
-            VertexIndices = FindProperty(FacesId, new[] { "vertex_indices", "vertex", "vertices", "vertex_indexes", "vertex_index", "index" }           
-            int ni = NormalsId == -1 ? VerticesId : NormalsI            
+            VertexIndices = FindProperty(FacesId, new[] { "vertex_indices", "vertex", "vertices", "vertex_indexes", "vertex_index", "index" });           
+            int ni = NormalsId == -1 ? VerticesId : NormalsId;          
             NormalX = FindProperty(ni, new[] { "nx", "normal_x", "x_normal", "xnormal", "normalx" });
             NormalY = FindProperty(ni, new[] { "ny", "normal_y", "y_normal", "ynormal", "normaly" });
             NormalZ = FindProperty(ni, new[] { "nz", "normal_z", "z_normal", "znormal", "normalz"});

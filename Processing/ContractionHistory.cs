@@ -6,7 +6,7 @@ using OpenTK;
 
 namespace Polynano.Processing
 {
-    internal class ContractionHistory
+    public class ContractionHistory
     {
         /// <summary>
         /// Affected vertices

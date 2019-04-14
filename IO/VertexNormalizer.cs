@@ -14,7 +14,7 @@ namespace Polynano.IO
             Matrix4 transform = GetNormalizingMatrix(vertices);
             for(int i = 0; i < vertices.Length; ++i)
             {
-                vertices[i] = new Vector3( new Vector4(vertices[i], 1.0f) * transform);
+                vertices[i] = Vector3.Transform(vertices[i], transform);
             }
         }
 

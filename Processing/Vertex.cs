@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Polynano.Processing
 {
-    internal class Vertex
+    public class Vertex
     {
         public Vector3 Position;
 
